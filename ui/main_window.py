@@ -4,16 +4,17 @@
 import sys
 import numpy as np
 import cv2
-import ConfigParser
+import configparser
+import os 
 
 from PyQt5 import QtGui, QtWidgets
 from opendr.camera import ProjectPoints, Rodrigues
 from opendr.renderer import ColoredRenderer
 from opendr.lighting import LambertianPointLight
 
-from gen.main_window import Ui_MainWindow as Ui_MainWindow_Base
-from camera_widget import Ui_CameraWidget
-from smpl.smpl_webuser.serialization import load_model
+from ui.gen.main_window import Ui_MainWindow as Ui_MainWindow_Base
+from ui.camera_widget import Ui_CameraWidget
+from smpl_webuser.serialization import load_model
 
 
 class Ui_MainWindow(QtWidgets.QMainWindow, Ui_MainWindow_Base):
@@ -127,9 +128,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow, Ui_MainWindow_Base):
             trans = self.model.trans.r
 
         if g == 'f':
-            self.model = load_model('smpl/models/basicModel_f_lbs_10_207_0_v1.0.0.pkl')
+            self.model = load_model('smpl/models/basicModel_f_lbs_10_207_0_v1.1.0.pkl')
         else:
-            self.model = load_model('smpl/models/basicmodel_m_lbs_10_207_0_v1.0.0.pkl')
+            self.model = load_model('smpl/models/basicmodel_m_lbs_10_207_0_v1.1.0.pkl')
         self._loaded_gender = g
 
         if pose is not None:
@@ -220,7 +221,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow, Ui_MainWindow_Base):
             cam_dist = np.fromstring(config.get('Camera', 'distortion'), dtype=np.float64, sep=',')
             cam_c = np.fromstring(config.get('Camera', 'center'), dtype=np.float64, sep=',')
             cam_f = config.getfloat('Camera', 'focal_length')
-            print cam_c
+            print(cam_c)
             self.camera_widget.set_values(cam_pos, cam_rot, cam_f, cam_c, cam_dist)
 
             self._update_canvas = True
@@ -277,6 +278,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow, Ui_MainWindow_Base):
 
     def _update_shape(self, id, val):
         val = (val - 50) / 50.0 * 5.0
+        print(val)
         self.model.betas[id] = val
         self.draw()
 
@@ -293,6 +295,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow, Ui_MainWindow_Base):
         if id == 0:
             val += np.pi
 
+        print(val)
         self.model.pose[id] = val
         self.draw()
 

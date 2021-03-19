@@ -18,5 +18,24 @@ ln -s <path to your smpl installation> smpl
 pip install -r requirements.txt
 ```
 
+## Troubleshooting
+
+if the installtion of opendr fails using python3
+
+install following libs: 
+sudo apt install libosmesa6-dev
+
+sudo apt-get install build-essential
+
+sudo apt-get install libgl1-mesa-dev
+
+sudo apt-get install libglu1-mesa-dev
+
+sudo apt-get install freeglut3-dev
+
+and run again: sudo pip install opendr
+
+taken from: https://github.com/akanazawa/hmr/issues/82
+
 ## License
 MIT

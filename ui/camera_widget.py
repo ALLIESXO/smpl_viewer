@@ -1,11 +1,11 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import numpy as np
 
 from PyQt5 import QtWidgets
 
-from gen.camera_widget import Ui_CameraWidget as Ui_CameraWidget_Base
+from .gen.camera_widget import Ui_CameraWidget as Ui_CameraWidget_Base
 
 
 class Ui_CameraWidget(QtWidgets.QMainWindow, Ui_CameraWidget_Base):
